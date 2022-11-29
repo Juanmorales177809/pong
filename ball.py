@@ -10,9 +10,10 @@ class Ball:
         self.ball_change_x = 5#speed of the ball
         self.ball_change_y = 5#speed of the ball
         self.score =0
+        self.lifes = 3
     
     def handles_ball(self,rect_x):#this handles the movement of the ball.
-        score = 0
+        
         if self.ball_x<0:
             self.ball_x=0
             self.ball_change_x = self.ball_change_x * -1
@@ -28,6 +29,8 @@ class Ball:
         elif self.ball_y>600:
             self.ball_change_y = self.ball_change_y * -1
             self.score = 0
+            self.lifes -=1
+            
     def draw_ball(self,screen,color):
         pygame.draw.circle(screen,color,(self.ball_x,self.ball_y),7)
     

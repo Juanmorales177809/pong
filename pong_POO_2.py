@@ -17,21 +17,38 @@ class Pong:
         self.clock=pygame.time.Clock()
     
         
-    def print_score(self,score):
-        font= pygame.font.SysFont('Calibri', 15, False, False)
-        text = font.render("Score = " + str(score), True, self.white)
-        self.screen.blit(text,[600,100])
-        pygame.display.flip()
-        self.clock.tick(60)
+    def print_score(self,score,center,size):
+        font= pygame.font.SysFont('Calibri', size)
+        text = font.render("Score = " + str(score), False, self.white)
+        self.screen.blit(text,center)
+        #pygame.display.flip()
+        
         #score board
     def print_lifes(self, lifes):
-        font= pygame.font.SysFont('Calibri', 15, False, False)
-        text = font.render("Lifes = " + str(lifes), True, self.white)
-        self.screen.blit(text,[600,120])
-        pygame.display.flip()
-        self.clock.tick(60)
+        
+        font= pygame.font.SysFont('Calibri', 15)
+        text = font.render("Lifes = " + str(lifes), False, self.white)
+        self.screen.blit(text,[40,10])
+        
+        #pygame.display.flip()
+        
+    def print_star(self,num):
+        img = pygame.image.load("star.png")
+        img = pygame.transform.scale(img,[20,20])
+        self.screen.blit(img,[690+num,8])   
+    def print_game_over(self):
+        font= pygame.font.SysFont('Calibri', 45)
+        text = font.render("Game Over", False, self.white)
+        self.screen.blit(text,[300,300])
+        #pygame.display.flip()
+    def print_heart(self,text):
+        img = pygame.image.load(text)
+        img = pygame.transform.scale(img,[20,20])
+        self.screen.blit(img,[10,8])
+        
     def level(self):
         if self.score <= 100:
             self.flag == True
+    
     def quit(self):
         pygame.quit()
