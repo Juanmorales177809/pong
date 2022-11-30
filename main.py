@@ -2,10 +2,12 @@ import pygame
 from pong_POO_2 import Pong
 from player import Player
 from ball import Ball
+from bonus import Bonus
+import time
 
 
 
-def main_loop(juego,player,ball):
+def main_loop(juego,player,ball,bonus):
     done = False
     global speed_level
     
@@ -27,9 +29,17 @@ def main_loop(juego,player,ball):
         juego.screen.fill(juego.black)
         player.rect_x += player.rect_change_x
         player.rect_y += player.rect_change_y
-        ball.ball_x += ball.ball_change_x
-        ball.ball_y += ball.ball_change_y
+        if ball.lifes > 0:
+            ball.ball_x += ball.ball_change_x
+            ball.ball_y += ball.ball_change_y
+        else:
+            ball.ball_x = 400
+            ball.ball_y = 150
+        
+        bonus.handles_bonus(player.rect_x)
         ball.handles_ball(player.rect_x)
+        bonus.draw_life(juego.screen,juego.red)
+        # moves.move(bonus.life_speed)
         ball.draw_ball(juego.screen,juego.white)
         player.drawrect(juego)
         center = [730,10]
@@ -48,14 +58,15 @@ def game_over(lifes, score):
     if lifes == 0:
         juego.print_game_over()
         juego.print_score(ball.score,[300,250],45)
-        juego.print_heart("sin_cora.png")
+        juego.print_heart("./img/sin_cora.png")
+        
         
     elif lifes == 3:
-        juego.print_heart("cora.png")
+        juego.print_heart("./img/cora.png")
     elif lifes == 2:
-        juego.print_heart("medio_cora.png")
+        juego.print_heart("./img/medio_cora.png")
     elif lifes == 1:
-        juego.print_heart("casi_sin_cora.png")
+        juego.print_heart("./img/casi_sin_cora.png")
     
     
 def lebel(score):
@@ -76,4 +87,5 @@ if "__main__"== __name__:
     juego = Pong()
     player = Player()
     ball = Ball()
-    main_loop(juego,player,ball)
+    bonus = Bonus()
+    main_loop(juego,player,ball,bonus)

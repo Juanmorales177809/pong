@@ -23,12 +23,12 @@ class Ball:
         elif self.ball_y<0:
             self.ball_y=0
             self.ball_change_y = self.ball_change_y * -1
-        elif self.ball_x>rect_x and self.ball_x<rect_x+100 and self.ball_y==565:
+        elif self.ball_x>rect_x and self.ball_x<rect_x+100 and self.ball_y==575:
             self.ball_change_y = self.ball_change_y * -1
             self.score +=1
         elif self.ball_y>600:
             self.ball_change_y = self.ball_change_y * -1
-            self.score = 0
+            self.score -= 1
             self.lifes -=1
             
     def draw_ball(self,screen,color):

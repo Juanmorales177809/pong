@@ -1,4 +1,5 @@
 import pygame
+import time
 
 
 class Pong:
@@ -33,7 +34,7 @@ class Pong:
         #pygame.display.flip()
         
     def print_star(self,num):
-        img = pygame.image.load("star.png")
+        img = pygame.image.load("./img/star.png")
         img = pygame.transform.scale(img,[20,20])
         self.screen.blit(img,[690+num,8])   
     def print_game_over(self):
@@ -51,4 +52,6 @@ class Pong:
             self.flag == True
     
     def quit(self):
+        print(self.clock.get_fps())
+        
         pygame.quit()
