@@ -26,13 +26,10 @@ class Pong:
         
         #score board
     def print_lifes(self, lifes):
-        
         font= pygame.font.SysFont('Calibri', 15)
         text = font.render("Lifes = " + str(lifes), False, self.white)
         self.screen.blit(text,[40,10])
-        
-        #pygame.display.flip()
-        
+
     def print_star(self,num):
         img = pygame.image.load("./img/star.png")
         img = pygame.transform.scale(img,[20,20])
@@ -42,15 +39,12 @@ class Pong:
         text = font.render("Game Over", False, self.white)
         self.screen.blit(text,[300,300])
         #pygame.display.flip()
+    
     def print_heart(self,text):
         img = pygame.image.load(text)
         img = pygame.transform.scale(img,[20,20])
         self.screen.blit(img,[10,8])
         
-    def level(self):
-        if self.score <= 100:
-            self.flag == True
-    
     def quit(self):
         print(self.clock.get_fps())
         

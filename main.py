@@ -4,14 +4,17 @@ from player import Player
 from ball import Ball
 from bonus import Bonus
 import time
+import random
 
 
 
-def main_loop(juego,player,ball,bonus):
+def main_loop(juego,player,ball,life,star,no_life):
+    contador = 0
     done = False
     global speed_level
     
     while not done:
+        contador+=1
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
@@ -36,10 +39,28 @@ def main_loop(juego,player,ball,bonus):
             ball.ball_x = 400
             ball.ball_y = 150
         
-        bonus.handles_bonus(player.rect_x)
+        
+        life.handles_bonus(player.rect_x)
+        life.draw_life(juego.screen)
+        if contador > 100:
+            star.handles_bonus(player.rect_x)
+            star.draw_score(juego.screen)
+        if contador > 200:
+            life.handles_bonus(player.rect_x)
+            life.draw_life(juego.screen)
+        if contador > 400:
+            no_life.handles_bonus(player.rect_x)
+            no_life.draw_lost_life(juego.screen)
+        if life.bandera:
+            ball.lifes +=1
+            life.bandera = False
+        if no_life.bandera:
+            ball.lifes -=1
+            no_life.bandera = False
+        if star.bandera:
+            ball.score +=1
+            star.bandera = False
         ball.handles_ball(player.rect_x)
-        bonus.draw_life(juego.screen,juego.red)
-        # moves.move(bonus.life_speed)
         ball.draw_ball(juego.screen,juego.white)
         player.drawrect(juego)
         center = [730,10]
@@ -72,14 +93,14 @@ def game_over(lifes, score):
 def lebel(score):
     if score < 10:
         speed_level = 60
-    if score >= 10:
+    elif score >= 10 and score < 20:
         juego.print_star(-30)
         speed_level =70
 
-    if score >=20 and score>10:
+    elif score >=20 and score<30:
         juego.print_star(-10)
         speed_level =100
-    if score >=30 and score>20:
+    elif score >=30 :
         juego.print_star(10)
         speed_level =150
     return speed_level
@@ -87,5 +108,7 @@ if "__main__"== __name__:
     juego = Pong()
     player = Player()
     ball = Ball()
-    bonus = Bonus()
-    main_loop(juego,player,ball,bonus)
+    life = Bonus()
+    star = Bonus()
+    no_life = Bonus()
+    main_loop(juego,player,ball,life,star,no_life)
